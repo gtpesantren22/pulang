@@ -46,19 +46,19 @@ class Login extends CI_Controller
 
         $username = $this->input->post('username', true);
         $password = $this->input->post('password', true);
-        $where = array('nis' => $username);
+        $where = array('username' => $username);
 
-        $cek = $this->M_Login->cek_login('tb_santri', $where);
+        $cek = $this->M_Login->cek_login('user', $where);
 
         if ($cek->num_rows() == 1) {
             $hasil = $cek->row();
-            if ($password === $hasil->pass) {
-                $this->session->set_userdata('id_santri', $hasil->id_santri);
-                $this->session->set_userdata('nis_santri', $hasil->nis);
-                $this->session->set_userdata('namaSesi', 'qwertyuiop0987654321');
+            if (password_verify($password, $hasil->password)) {
+                $this->session->set_userdata('id_santri', $hasil->id_user);
+                // $this->session->set_userdata('nis_santri', $hasil->nis);
+                $this->session->set_userdata('namaSesi', 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876');
 
                 $this->session->set_flashdata('success', 'Login Berhasil');
-                redirect('home');
+                redirect('welcome');
             } else {
                 $this->session->set_flashdata(
                     "pesan",

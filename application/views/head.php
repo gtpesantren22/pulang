@@ -61,7 +61,7 @@
                                 <i class="ti-settings text-primary"></i>
                                 Settings
                             </a>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" href="<?= base_url('welcome/logout') ?>" onclick="return confirm('yakin akan keluar ?')">
                                 <i class="ti-power-off text-primary"></i>
                                 Logout
                             </a>
