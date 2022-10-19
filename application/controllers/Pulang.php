@@ -8,6 +8,10 @@ class Pulang extends CI_Controller
         parent::__construct();
 
         $this->load->model('M_Pulang');
+
+        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+            redirect('login');
+        }
     }
     public function index()
     {

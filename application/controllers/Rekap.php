@@ -8,6 +8,10 @@ class Rekap extends CI_Controller
         parent::__construct();
 
         $this->load->model('M_Rekap');
+
+        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+            redirect('login');
+        }
     }
     public function index()
     {

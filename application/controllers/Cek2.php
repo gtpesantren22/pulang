@@ -8,6 +8,9 @@ class Cek2 extends CI_Controller
         parent::__construct();
 
         $this->load->model('M_Cek2');
+        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+            redirect('login');
+        }
     }
 
     public function kelas()
