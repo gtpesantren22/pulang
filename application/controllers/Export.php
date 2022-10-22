@@ -44,9 +44,9 @@ class Export extends CI_Controller
         // set Row
         $rowCount = 2;
         foreach ($listInfo as $list) {
-            if ($list->waktu > date('11-05-2022 17:00:00')) {
+            if ($list->waktu > date('14-10-2022 17:00:00')) {
                 $ket = 'Terlambat';
-                $waktuawal  = date_create('11-05-2022 17:00:00'); //waktu di setting
+                $waktuawal  = date_create('14-10-2022 17:00:00'); //waktu di setting
                 $waktuakhir = date_create($list->waktu);
                 $diff  = date_diff($waktuawal, $waktuakhir);
                 $jarak = $diff->d . ' hari, ' . $diff->h . ' jam ' . $diff->i . ' menit ';
@@ -130,9 +130,9 @@ class Export extends CI_Controller
         // set Row
         $rowCount = 2;
         foreach ($listInfo as $list) {
-            if ($list->waktu > date('11-05-2022 17:00:00')) {
+            if ($list->waktu > date('14-10-2022 17:00:00')) {
                 $ket = 'Terlambat';
-                $waktuawal  = date_create('11-05-2022 17:00:00'); //waktu di setting
+                $waktuawal  = date_create('14-10-2022 17:00:00'); //waktu di setting
                 $waktuakhir = date_create($list->waktu);
                 $diff  = date_diff($waktuawal, $waktuakhir);
                 $jarak = $diff->d . ' hari, ' . $diff->h . ' jam ' . $diff->i . ' menit ';

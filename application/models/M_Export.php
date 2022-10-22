@@ -20,6 +20,6 @@ class M_Export extends CI_Model
 
     public function exportTelat()
     {
-        return $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE jkl = 'Laki-laki' AND aktif = 'Y' AND waktu > '11-05-2022 17:00:00' ORDER BY t_formal DESC ")->result();
+        return $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE jkl = 'Laki-laki' AND aktif = 'Y' AND waktu > '14-10-2022 17:00:00' ORDER BY t_formal DESC ")->result();
     }
 }
