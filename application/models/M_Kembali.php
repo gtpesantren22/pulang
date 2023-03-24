@@ -2,6 +2,24 @@
 
 class M_Kembali extends CI_Model
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $id = $this->session->userdata('id_santri');
+        $user = $this->db->query("SELECT * FROM user WHERE id_user = $id ")->row();
+
+        if ($user->level === 'admin') {
+            $this->jkl1 = 'Laki-laki';
+            $this->jkl2 = 'Perempuan';
+        } elseif ($user->level === 'putra') {
+            $this->jkl1 = 'Laki-laki';
+            $this->jkl2 = 'Laki-laki';
+        } elseif ($user->level === 'putri') {
+            $this->jkl1 = 'Perempuan';
+            $this->jkl2 = 'Perempuan';
+        }
+    }
     public function cek($nis)
     {
         $this->db->where('nis', $nis);
@@ -35,7 +53,10 @@ class M_Kembali extends CI_Model
         $this->db->select('*');
         $this->db->from('kembali');
         $this->db->join('tb_santri', 'tb_santri.nis = kembali.nis');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         $this->db->order_by('waktu', 'DESC');
         $this->db->limit(5);
         return $this->db->get();
@@ -51,7 +72,10 @@ class M_Kembali extends CI_Model
         $this->db->where('t_formal', 'MTs');
         $this->db->where('aktif', 'Y');
         $this->db->from('tb_santri');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         return $this->db->get();
     }
     public function mts_data_ambil()
@@ -60,14 +84,20 @@ class M_Kembali extends CI_Model
         $this->db->where('tb_santri.aktif', 'Y');
         $this->db->from('kembali');
         $this->db->join('tb_santri', 'tb_santri.nis = kembali.nis');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         return $this->db->get();
     }
     public function mts_kelas()
     {
         $this->db->select('k_formal');
         $this->db->where('t_formal', 'MTs');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         $this->db->from('tb_santri');
         $this->db->group_by('k_formal');
         return $this->db->get();
@@ -79,7 +109,10 @@ class M_Kembali extends CI_Model
         $this->db->where('t_formal', 'SMP');
         $this->db->where('aktif', 'Y');
         $this->db->from('tb_santri');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         return $this->db->get();
     }
     public function smp_data_ambil()
@@ -88,14 +121,20 @@ class M_Kembali extends CI_Model
         $this->db->where('tb_santri.aktif', 'Y');
         $this->db->from('kembali');
         $this->db->join('tb_santri', 'tb_santri.nis = kembali.nis');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         return $this->db->get();
     }
     public function smp_kelas()
     {
         $this->db->select('k_formal');
         $this->db->where('t_formal', 'SMP');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         $this->db->from('tb_santri');
         $this->db->group_by('k_formal');
         return $this->db->get();
@@ -107,7 +146,10 @@ class M_Kembali extends CI_Model
         $this->db->where('t_formal', 'MA');
         $this->db->where('aktif', 'Y');
         $this->db->from('tb_santri');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         return $this->db->get();
     }
     public function ma_data_ambil()
@@ -116,14 +158,20 @@ class M_Kembali extends CI_Model
         $this->db->where('tb_santri.aktif', 'Y');
         $this->db->from('kembali');
         $this->db->join('tb_santri', 'tb_santri.nis = kembali.nis');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         return $this->db->get();
     }
     public function ma_kelas()
     {
         $this->db->select('k_formal');
         $this->db->where('t_formal', 'MA');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         $this->db->from('tb_santri');
         $this->db->group_by('k_formal');
         return $this->db->get();
@@ -134,7 +182,10 @@ class M_Kembali extends CI_Model
     {
         $this->db->where('t_formal', 'SMK');
         $this->db->where('aktif', 'Y');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         $this->db->from('tb_santri');
         return $this->db->get();
     }
@@ -144,14 +195,20 @@ class M_Kembali extends CI_Model
         $this->db->where('tb_santri.aktif', 'Y');
         $this->db->from('kembali');
         $this->db->join('tb_santri', 'tb_santri.nis = kembali.nis');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         return $this->db->get();
     }
     public function smk_kelas()
     {
         $this->db->select('k_formal');
         $this->db->where('t_formal', 'SMK');
-        $this->db->where('tb_santri.jkl', 'Laki-laki');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
         $this->db->from('tb_santri');
         $this->db->group_by('k_formal');
         return $this->db->get();

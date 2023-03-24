@@ -14,10 +14,11 @@
               <table class="table table-striped table-sm table-bordered" id="data">
                 <thead>
                   <th>No</th>
-                  <th>NIS</th>
                   <th>Nama</th>
                   <th>Alamat</th>
                   <th>Formal</th>
+                  <th>Madin</th>
+                  <th>Kamar</th>
                   <th>Act</th>
                 </thead>
                 <tbody>
@@ -25,12 +26,11 @@
                   foreach ($pa as $dt) : ?>
                     <tr>
                       <td><?= $no++ ?></td>
-                      <td><?= $dt->nis; ?></td>
                       <td><?= $dt->nama; ?></td>
                       <td><?= $dt->desa . '-' . $dt->kec . '-' . $dt->kab; ?></td>
                       <td><?= $dt->k_formal . ' ' . $dt->t_formal; ?></td>
-                      <!-- <td><?= $dt->k_madin . ' ' . $dt->r_madin; ?></td>
-                      <td><?= $dt->kamar . ' / ' . $dt->komplek; ?></td> -->
+                      <td><?= $dt->k_madin . ' ' . $dt->r_madin; ?></td>
+                      <td><?= $dt->kamar . ' / ' . $dt->komplek; ?></td>
                       <td><button class="btn btn-primary">Detail</button></td>
                     </tr>
                   <?php endforeach; ?>

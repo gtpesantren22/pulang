@@ -43,7 +43,8 @@
 
             <?= form_close(); ?>
 
-            <table class="table table-sm">
+            <div class="table-responsive">
+                <table class="table table-sm">
               <thead>
                 <tr>
                   <th>Nama</th>
@@ -61,6 +62,7 @@
                 <?php endforeach; ?>
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       </div>

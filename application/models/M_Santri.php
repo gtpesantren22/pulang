@@ -2,8 +2,28 @@
 
 class M_Santri extends CI_Model
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $id = $this->session->userdata('id_santri');
+        $user = $this->db->query("SELECT * FROM user WHERE id_user = $id ")->row();
+
+        if ($user->level === 'admin') {
+            $this->jkl1 = 'Laki-laki';
+            $this->jkl2 = 'Perempuan';
+        } elseif ($user->level === 'putra') {
+            $this->jkl1 = 'Laki-laki';
+            $this->jkl2 = 'Laki-laki';
+        } elseif ($user->level === 'putri') {
+            $this->jkl1 = 'Perempuan';
+            $this->jkl2 = 'Perempuan';
+        }
+    }
+
     public function data()
     {
+
         $this->db->where('jkl', 'Laki-laki');
         $this->db->where('aktif', 'Y');
         $this->db->from('tb_santri');

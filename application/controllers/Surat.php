@@ -1,5 +1,11 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+require_once FCPATH . 'vendor/autoload.php';
 
 class Surat extends CI_Controller
 {
@@ -33,6 +39,12 @@ class Surat extends CI_Controller
         $data['smk_kelas'] = $this->M_Surat->smk_kelas()->result();
         $data['smk_data_ambil'] = $this->M_Surat->smk_data_ambil()->num_rows();
 
+        $data['mhs_data'] = $this->M_Surat->mhs_data()->num_rows();
+        $data['mhs_data_ambil'] = $this->M_Surat->mhs_data_ambil()->num_rows();
+
+        $data['semua'] = $data['mts_data'] + $data['smp_data'] + $data['ma_data'] + $data['smk_data'] + $data['mhs_data'];
+        $data['ambil'] = $data['mts_data_ambil'] + $data['smp_data_ambil'] + $data['ma_data_ambil'] + $data['smk_data_ambil'] + $data['mhs_data_ambil'];
+
         $data['title'] = 'surat';
 
         $this->load->view('head', $data);
@@ -48,15 +60,15 @@ class Surat extends CI_Controller
         $cek2 = $this->M_Surat->cek2($nis)->num_rows();
         $cek3 = $this->M_Surat->cek3($nis)->num_rows();
 
-        if ($cek == 0) {
+        if ($cek < 1) {
             $this->session->set_flashdata('wrong', 'Maaf Santri tidak terdaftar');
-            redirect(base_url('surat'));
-        } else if ($cek2 == 1) {
+            redirect('surat');
+        } else if ($cek2 > 0) {
             $this->session->set_flashdata('wrong', 'Santri ini sudah melakukan pengambilan');
-            redirect(base_url('surat'));
-        } else if ($cek3 == 1) {
+            redirect('surat');
+        } else if ($cek3 > 0) {
             $this->session->set_flashdata('wrong', 'Maaf Santri tidak aktif');
-            redirect(base_url('surat'));
+            redirect('surat');
         } else {
             $data = [
                 'nis' => $nis,
@@ -67,7 +79,58 @@ class Surat extends CI_Controller
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('yes', 'Pengambilan Surat Berhasil');
             }
-            redirect(base_url('surat'));
+            redirect('surat');
         }
+    }
+
+    public function suratDetail()
+    {
+        $data['sudah'] = $this->M_Surat->sudah()->result();
+        $data['title'] = 'surat';
+
+        $this->load->view('head', $data);
+        $this->load->view('suratDetail', $data);
+        $this->load->view('foot');
+    }
+
+    public function exportSudah()
+    {
+        // Ambil data dari model
+        $data = $this->M_Surat->sudah()->result();
+
+        // Load library PhpSpreadsheet dan inisialisasi objek Spreadsheet
+        $spreadsheet = new Spreadsheet();
+        // Buat sheet baru dengan nama "Data"
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Data Pengambilan Surat');
+
+        // Buat header kolom
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nama');
+        $sheet->setCellValue('C1', 'Kelas');
+        $sheet->setCellValue('D1', 'Lembaga');
+        $sheet->setCellValue('E1', 'Waktu Ambil');
+
+        // Loop untuk menampilkan data
+        $no = 2; // Baris pertama untuk header, jadi data dimulai dari baris kedua
+        // $urut = 1;
+        foreach ($data as $row) {
+            $sheet->setCellValue('A' . $no, $no - 1);
+            $sheet->setCellValue('B' . $no, $row->nama);
+            $sheet->setCellValue('C' . $no, $row->k_formal);
+            $sheet->setCellValue('D' . $no, $row->t_formal);
+            $sheet->setCellValue('E' . $no, $row->waktu);
+            $no++;
+        }
+
+        // Konfigurasi header untuk men-download file Excel
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Data Pengambilan Surat Izin Liburan.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Buat objek writer untuk menulis file Excel
+        $writer = new Xlsx($spreadsheet);
+        // Tulis file Excel ke output
+        $writer->save('php://output');
     }
 }

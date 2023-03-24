@@ -49,10 +49,10 @@ class Pulang extends CI_Controller
 
         if ($cek4 < 1) {
             $this->session->set_flashdata('wrong', 'Maaf Santri belum melakukan pengambilan surat');
-            redirect(base_url('pulang'));
+            redirect('pulang');
         } elseif ($cek2 > 0) {
             $this->session->set_flashdata('wrong', 'Maaf santri ini sudah melakukan izin pulang');
-            redirect(base_url('pulang'));
+            redirect('pulang');
         } else {
             $data = [
                 'nis' => $nis,
@@ -63,7 +63,7 @@ class Pulang extends CI_Controller
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('yes', 'Pengambilan pulang Berhasil');
             }
-            redirect(base_url('pulang'));
+            redirect('pulang');
         }
     }
 }

@@ -15,6 +15,8 @@ class Welcome extends CI_Controller
 	public function index()
 	{
 		$data['title'] = 'index';
+		$id = $this->session->userdata('id_santri');
+		$data['user'] = $this->db->query("SELECT * FROM user WHERE id_user = $id ")->row();
 
 		$this->load->view('head', $data);
 		$this->load->view('index');

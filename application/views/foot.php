@@ -39,6 +39,14 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#data').DataTable();
+        $('#data2').DataTable();
+        $('#data3').DataTable();
+        $('#data4').DataTable({
+            buttons: [{
+                extend: 'excel',
+                className: 'btn btn-success'
+            }]
+        });
     });
 </script>
 </body>
