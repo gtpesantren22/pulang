@@ -24,7 +24,36 @@
       <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Scan KTS dibawah ini !</h4>
+            <div class="row">
+              <div class="col-md-6 ">
+                <div class="card d-flex align-items-center">
+                  <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                      <!-- <i class="ti-facebook text-facebook icon-md"></i> -->
+                      <div class="ms-3">
+                        <h6 class="text-facebook"><?= $ambil ?> santri</h6>
+                        <p class="mt-2 text-muted card-text">Sudah kembali</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 ">
+                <div class="card d-flex align-items-center">
+                  <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                      <!-- <i class="ti-youtube text-youtube icon-md"></i> -->
+                      <div class="ms-3">
+                        <h6 class="text-youtube"><?= $semua - $ambil ?> santri</h6>
+                        <p class="mt-2 text-muted card-text">Belum kembali</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm btn-block" onclick="window.location='<?= base_url('kembali/kembaliDetail') ?>'">Lihat list data</button>
+            </div>
+            <h4 class="card-title mt-3">Scan KTS dibawah ini !</h4>
             <?php if ($this->session->flashdata('yes')) { ?>
               <div class="alert alert-success">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -44,24 +73,24 @@
             <?= form_close(); ?>
 
             <div class="table-responsive">
-                <table class="table table-sm">
-              <thead>
-                <tr>
-                  <th>Nama</th>
-                  <th>Kelas</th>
-                  <th>Waktu Kembali</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($sudah as $dt) : ?>
+              <table class="table table-sm">
+                <thead>
                   <tr>
-                    <td><?= $dt->nama; ?></td>
-                    <td><?= $dt->k_formal . ' ' . $dt->t_formal; ?></td>
-                    <td><?= $dt->waktu; ?></td>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Waktu Kembali</th>
                   </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php foreach ($sudah as $dt) : ?>
+                    <tr>
+                      <td><?= $dt->nama; ?></td>
+                      <td><?= $dt->k_formal . ' ' . $dt->t_formal; ?></td>
+                      <td><?= $dt->waktu; ?></td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -143,6 +172,15 @@
                     <?php endforeach; ?>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 stretch-card transparent mt-2">
+            <div class="card card-tale">
+              <div class="card-body">
+                <p class="mb-4">Data Santri Mahasiswa (<?= $mhs_data; ?> santri)</p>
+                <p style="font-size: 25px;" class="fs-30 mb-3">S : <?= $mhs_data_ambil; ?> / B : <?= $mhs_data - $mhs_data_ambil; ?></p>
               </div>
             </div>
           </div>

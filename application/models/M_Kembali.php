@@ -6,8 +6,8 @@ class M_Kembali extends CI_Model
     public function __construct()
     {
         parent::__construct();
-        $id = $this->session->userdata('id_santri');
-        $user = $this->db->query("SELECT * FROM user WHERE id_user = $id ")->row();
+        $this->load->model('M_Login');
+        $user = $this->M_Login->current_user();
 
         if ($user->level === 'admin') {
             $this->jkl1 = 'Laki-laki';
@@ -212,5 +212,50 @@ class M_Kembali extends CI_Model
         $this->db->from('tb_santri');
         $this->db->group_by('k_formal');
         return $this->db->get();
+    }
+
+    // MHS
+    public function mhs_data()
+    {
+        $this->db->where('t_formal', 'Mahasiswa');
+        $this->db->where('aktif', 'Y');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
+        $this->db->from('tb_santri');
+        return $this->db->get();
+    }
+    public function mhs_data_ambil()
+    {
+        $this->db->where('tb_santri.t_formal', 'Mahasiswa');
+        $this->db->where('tb_santri.aktif', 'Y');
+        $this->db->from('kembali');
+        $this->db->join('tb_santri', 'tb_santri.nis = kembali.nis');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
+        return $this->db->get();
+    }
+
+    public function sudah()
+    {
+        $this->db->select('tb_santri.nama, tb_santri.t_formal,tb_santri.k_formal, kembali.waktu');
+        $this->db->from('kembali');
+        $this->db->join('tb_santri', 'tb_santri.nis = kembali.nis');
+        $this->db->group_start();
+        $this->db->where('tb_santri.jkl', $this->jkl1);
+        $this->db->or_where('tb_santri.jkl', $this->jkl2);
+        $this->db->group_end();
+        $this->db->order_by('t_formal', 'ASC');
+        $this->db->order_by('k_formal', 'ASC');
+        $this->db->order_by('kembali.waktu', 'DESC');
+        return $this->db->get();
+    }
+
+    public function belum()
+    {
+        return $this->db->query("SELECT * FROM tb_santri WHERE (jkl = '$this->jkl1' OR jkl = '$this->jkl2') AND aktif = 'Y' AND NOT EXISTS (SELECT nis FROM kembali WHERE kembali.nis = tb_santri.nis) ORDER BY t_formal ASC, k_formal ASC ");
     }
 }

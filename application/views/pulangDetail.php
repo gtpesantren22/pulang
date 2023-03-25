@@ -5,7 +5,7 @@
       <div class="col-md-12 grid-margin">
         <div class="row">
           <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-            <h3 class="font-weight-bold">Absensi Pengambilan Surat Izin</h3>
+            <h3 class="font-weight-bold">Absensi Pulang Liburan</h3>
             <h6 class="font-weight-normal mb-0">Aplikasi Absensi Pulang Santri PP. Darul Lughah Wal Karomah </h6>
           </div>
           <div class="col-12 col-xl-4">
@@ -24,9 +24,9 @@
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <button class="btn btn-success btn-sm float-right" onclick="window.location='<?= base_url('surat/exportSudah') ?>'">Export Excel</button>
-            <button class="btn btn-warning btn-sm float-right" onclick="window.location='<?= base_url('surat') ?>'">Kembali</button>
-            <h4 class="card-title mt-3">Data yang sudah ambil surat</h4>
+            <button class="btn btn-success btn-sm float-right" onclick="window.location='<?= base_url('pulang/exportSudah') ?>'">Export Excel</button>
+            <button class="btn btn-warning btn-sm float-right" onclick="window.location='<?= base_url('pulang') ?>'">Kembali</button>
+            <h4 class="card-title mt-3">Data yang sudah pulang</h4>
             <div class="table-responsive">
               <table class="table table-sm" id="data4">
                 <thead>
@@ -34,7 +34,7 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Kelas</th>
-                    <th>Waktu ambil</th>
+                    <th>Waktu pulang</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -60,7 +60,7 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Kelas</th>
-                    <th>Waktu ambil</th>
+                    <th>Waktu pulang</th>
                   </tr>
                 </thead>
                 <tbody>

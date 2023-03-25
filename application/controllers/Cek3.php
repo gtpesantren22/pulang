@@ -9,7 +9,9 @@ class Cek3 extends CI_Controller
 
         $this->load->model('M_Cek3');
 
-        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+        $this->load->model('M_Login');
+
+        if (!$this->M_Login->current_user()) {
             redirect('login');
         }
     }

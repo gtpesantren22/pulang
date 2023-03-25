@@ -7,16 +7,19 @@ class Welcome extends CI_Controller
 	{
 		parent::__construct();
 
-		if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
-			redirect('login');
+		$this->load->model('M_Login');
+
+		$user = $this->M_Login->current_user();
+
+		if (!$this->M_Login->current_user()) {
+			redirect('login/logout');
 		}
 	}
 
 	public function index()
 	{
 		$data['title'] = 'index';
-		$id = $this->session->userdata('id_santri');
-		$data['user'] = $this->db->query("SELECT * FROM user WHERE id_user = $id ")->row();
+		$data['user'] = $this->M_Login->current_user();
 
 		$this->load->view('head', $data);
 		$this->load->view('index');

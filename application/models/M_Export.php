@@ -6,8 +6,8 @@ class M_Export extends CI_Model
     public function __construct()
     {
         parent::__construct();
-        $id = $this->session->userdata('id_santri');
-        $user = $this->db->query("SELECT * FROM user WHERE id_user = $id ")->row();
+        $this->load->model('M_Login');
+        $user = $this->M_Login->current_user();
 
         if ($user->level === 'admin') {
             $this->jkl1 = 'Laki-laki';

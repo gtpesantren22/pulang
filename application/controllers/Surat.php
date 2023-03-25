@@ -14,8 +14,10 @@ class Surat extends CI_Controller
         parent::__construct();
 
         $this->load->model('M_Surat');
+        $this->load->model('M_Login');
+        $user = $this->M_Login->current_user();
 
-        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+        if (!$this->M_Login->current_user()) {
             redirect('login');
         }
     }
@@ -86,6 +88,7 @@ class Surat extends CI_Controller
     public function suratDetail()
     {
         $data['sudah'] = $this->M_Surat->sudah()->result();
+        $data['belum'] = $this->M_Surat->belum()->result();
         $data['title'] = 'surat';
 
         $this->load->view('head', $data);
@@ -97,6 +100,7 @@ class Surat extends CI_Controller
     {
         // Ambil data dari model
         $data = $this->M_Surat->sudah()->result();
+        $dataBelum = $this->M_Surat->belum()->result();
 
         // Load library PhpSpreadsheet dan inisialisasi objek Spreadsheet
         $spreadsheet = new Spreadsheet();
@@ -121,6 +125,29 @@ class Surat extends CI_Controller
             $sheet->setCellValue('D' . $no, $row->t_formal);
             $sheet->setCellValue('E' . $no, $row->waktu);
             $no++;
+        }
+
+        // Buat sheet baru dengan nama "Data"
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('Data Belum Ambil Surat');
+
+        // Buat header kolom
+        $sheet2->setCellValue('A1', 'No');
+        $sheet2->setCellValue('B1', 'Nama');
+        $sheet2->setCellValue('C1', 'Kelas');
+        $sheet2->setCellValue('D1', 'Lembaga');
+        $sheet2->setCellValue('E1', 'Waktu Ambil');
+
+        // Loop untuk menampilkan data
+        $no2 = 2; // Baris pertama untuk header, jadi data dimulai dari baris kedua
+        // $urut = 1;
+        foreach ($dataBelum as $row2) {
+            $sheet2->setCellValue('A' . $no2, $no2 - 1);
+            $sheet2->setCellValue('B' . $no2, $row2->nama);
+            $sheet2->setCellValue('C' . $no2, $row2->k_formal);
+            $sheet2->setCellValue('D' . $no2, $row2->t_formal);
+            $sheet2->setCellValue('E' . $no2, 'Belum');
+            $no2++;
         }
 
         // Konfigurasi header untuk men-download file Excel

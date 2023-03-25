@@ -8,7 +8,9 @@ class Cek extends CI_Controller
         parent::__construct();
 
         $this->load->model('M_Cek');
-        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+        $this->load->model('M_Login');
+
+        if (!$this->M_Login->current_user()) {
             redirect('login');
         }
     }

@@ -10,8 +10,10 @@ class Export extends CI_Controller
         parent::__construct();
         // load model
         $this->load->model('M_Export', 'export');
+        $user = $this->M_Login->current_user();
+        $this->load->model('M_Login');
 
-        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+        if (!$this->M_Login->current_user()) {
             redirect('login');
         }
     }

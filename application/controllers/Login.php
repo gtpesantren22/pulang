@@ -25,7 +25,7 @@ class Login extends CI_Controller
         parent::__construct();
         $this->load->model('M_Login');
 
-        if ($this->session->userdata('namaSesi') === 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+        if ($this->M_Login->current_user()) {
             redirect('welcome');
         }
     }
@@ -46,33 +46,28 @@ class Login extends CI_Controller
 
         $username = $this->input->post('username', true);
         $password = $this->input->post('password', true);
-        $where = array('username' => $username);
 
-        $cek = $this->M_Login->cek_login('user', $where);
+        // $cek = $this->M_Login->cek_login('user', $where);
 
-        if ($cek->num_rows() == 1) {
-            $hasil = $cek->row();
-            if (password_verify($password, $hasil->password)) {
-                $this->session->set_userdata('id_santri', $hasil->id_user);
-                // $this->session->set_userdata('nis_santri', $hasil->nis);
-                $this->session->set_userdata('namaSesi', 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876');
-
-                $this->session->set_flashdata('success', 'Login Berhasil');
-                redirect('welcome');
-            } else {
-                $this->session->set_flashdata(
-                    "pesan",
-                    "Password salah/tidak ditemukan"
-                );
-                // $this->session->set_flashdata('error', 'Login Salah');
-                redirect('login');
-            }
+        if ($this->M_Login->login($username, $password)) {
+            $this->session->set_flashdata('success', 'Login Berhasil');
+            redirect('welcome');
         } else {
-            $this->session->set_flashdata(
-                "pesan",
-                "Username salah/tidak ditemukan"
-            );
-            redirect('login');
+            // $this->session->set_flashdata('message_login_error', 'Login Gagal, pastikan username dan passwrod benar!');
+            echo "
+            <script>
+                alert('Maaf username atau password salah');
+                window.location = '" . base_url('login') . "';
+            </script>
+            ";
+            // $this->load->view('login');
         }
+    }
+
+    public function logout()
+    {
+        // $this->load->model('M_Login');
+        $this->M_Login->logout();
+        redirect('login');
     }
 }

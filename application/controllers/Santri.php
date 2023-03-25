@@ -8,8 +8,9 @@ class Santri extends CI_Controller
         parent::__construct();
 
         $this->load->model('M_Santri');
+        $this->load->model('M_Login');
 
-        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+        if (!$this->M_Login->current_user()) {
             redirect('login');
         }
     }

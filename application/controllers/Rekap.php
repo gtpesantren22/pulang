@@ -9,7 +9,10 @@ class Rekap extends CI_Controller
 
         $this->load->model('M_Rekap');
 
-        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+        $this->load->model('M_Login');
+        $user = $this->M_Login->current_user();
+
+        if (!$this->M_Login->current_user()) {
             redirect('login');
         }
     }

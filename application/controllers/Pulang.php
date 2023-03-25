@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+require_once FCPATH . 'vendor/autoload.php';
+
 class Pulang extends CI_Controller
 {
     public function __construct()
@@ -9,7 +14,10 @@ class Pulang extends CI_Controller
 
         $this->load->model('M_Pulang');
 
-        if ($this->session->userdata('namaSesi') != 'hgvhgjhGHJGJHKJHkjhjhjh87645365457hjgjgjhGJHGjhgjHGHG76876') {
+        $this->load->model('M_Login');
+        $user = $this->M_Login->current_user();
+
+        if (!$this->M_Login->current_user()) {
             redirect('login');
         }
     }
@@ -32,6 +40,12 @@ class Pulang extends CI_Controller
         $data['smk_data'] = $this->M_Pulang->smk_data()->num_rows();
         $data['smk_kelas'] = $this->M_Pulang->smk_kelas()->result();
         $data['smk_data_ambil'] = $this->M_Pulang->smk_data_ambil()->num_rows();
+
+        $data['mhs_data'] = $this->M_Pulang->mhs_data()->num_rows();
+        $data['mhs_data_ambil'] = $this->M_Pulang->mhs_data_ambil()->num_rows();
+
+        $data['semua'] = $data['mts_data'] + $data['smp_data'] + $data['ma_data'] + $data['smk_data'] + $data['mhs_data'];
+        $data['ambil'] = $data['mts_data_ambil'] + $data['smp_data_ambil'] + $data['ma_data_ambil'] + $data['smk_data_ambil'] + $data['mhs_data_ambil'];
 
         $data['title'] = 'pulang';
         $this->load->view('head', $data);
@@ -65,5 +79,81 @@ class Pulang extends CI_Controller
             }
             redirect('pulang');
         }
+    }
+
+    public function pulangDetail()
+    {
+        $data['sudah'] = $this->M_Pulang->sudah()->result();
+        $data['belum'] = $this->M_Pulang->belum()->result();
+        $data['title'] = 'pulang';
+
+        $this->load->view('head', $data);
+        $this->load->view('pulangDetail', $data);
+        $this->load->view('foot');
+    }
+
+    public function exportSudah()
+    {
+        // Ambil data dari model
+        $data = $this->M_Pulang->sudah()->result();
+        $dataBelum = $this->M_Pulang->belum()->result();
+
+        // Load library PhpSpreadsheet dan inisialisasi objek Spreadsheet
+        $spreadsheet = new Spreadsheet();
+        // Buat sheet baru dengan nama "Data"
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Data Absensi Pulang');
+
+        // Buat header kolom
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nama');
+        $sheet->setCellValue('C1', 'Kelas');
+        $sheet->setCellValue('D1', 'Lembaga');
+        $sheet->setCellValue('E1', 'Waktu Pulang');
+
+        // Loop untuk menampilkan data
+        $no = 2; // Baris pertama untuk header, jadi data dimulai dari baris kedua
+        // $urut = 1;
+        foreach ($data as $row) {
+            $sheet->setCellValue('A' . $no, $no - 1);
+            $sheet->setCellValue('B' . $no, $row->nama);
+            $sheet->setCellValue('C' . $no, $row->k_formal);
+            $sheet->setCellValue('D' . $no, $row->t_formal);
+            $sheet->setCellValue('E' . $no, $row->waktu);
+            $no++;
+        }
+
+        // Buat sheet baru dengan nama "Data"
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('Data Belum Pulang');
+
+        // Buat header kolom 
+        $sheet2->setCellValue('A1', 'No');
+        $sheet2->setCellValue('B1', 'Nama');
+        $sheet2->setCellValue('C1', 'Kelas');
+        $sheet2->setCellValue('D1', 'Lembaga');
+        $sheet2->setCellValue('E1', 'Waktu Pulang');
+
+        // Loop untuk menampilkan data
+        $no2 = 2; // Baris pertama untuk header, jadi data dimulai dari baris kedua
+        // $urut = 1;
+        foreach ($dataBelum as $row2) {
+            $sheet2->setCellValue('A' . $no2, $no2 - 1);
+            $sheet2->setCellValue('B' . $no2, $row2->nama);
+            $sheet2->setCellValue('C' . $no2, $row2->k_formal);
+            $sheet2->setCellValue('D' . $no2, $row2->t_formal);
+            $sheet2->setCellValue('E' . $no2, 'Belum');
+            $no2++;
+        }
+
+        // Konfigurasi header untuk men-download file Excel
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Data Absensi Pulang Izin Liburan.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Buat objek writer untuk menulis file Excel
+        $writer = new Xlsx($spreadsheet);
+        // Tulis file Excel ke output
+        $writer->save('php://output');
     }
 }
