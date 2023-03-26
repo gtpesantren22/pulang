@@ -39,4 +39,11 @@ class Welcome extends CI_Controller
 		$this->session->set_flashdata('berhasil', 'Logout Berhasil');
 		redirect('login');
 	}
+
+	public function logout()
+	{
+		// $this->load->model('M_Login');
+		$this->M_Login->logout();
+		redirect('login');
+	}
 }
