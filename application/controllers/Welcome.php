@@ -27,18 +27,18 @@ class Welcome extends CI_Controller
 	}
 
 	// Logout from admin page
-	public function logout()
-	{
+	// public function logout()
+	// {
 
-		// Removing session data
-		$sess_array = array(
-			'namaSesi' => ''
-		);
-		$this->session->unset_userdata('namaSesi', $sess_array);
-		// $data['message_display'] = 'Successfully Logout';
-		$this->session->set_flashdata('berhasil', 'Logout Berhasil');
-		redirect('login');
-	}
+	// 	// Removing session data
+	// 	$sess_array = array(
+	// 		'namaSesi' => ''
+	// 	);
+	// 	$this->session->unset_userdata('namaSesi', $sess_array);
+	// 	// $data['message_display'] = 'Successfully Logout';
+	// 	$this->session->set_flashdata('berhasil', 'Logout Berhasil');
+	// 	redirect('login');
+	// }
 
 	public function logout()
 	{
