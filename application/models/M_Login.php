@@ -28,9 +28,9 @@ class M_Login extends CI_Model
         }
 
         // cek apakah user aktif?
-        if ($user->aktif === 'T') {
-            return FALSE;
-        }
+        // if ($user->aktif === 'T') {
+        //     return FALSE;
+        // }
 
         // bikin session
         $this->session->set_userdata([self::SESSION_KEY => $user->id_user]);
