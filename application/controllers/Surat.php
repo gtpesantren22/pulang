@@ -56,7 +56,7 @@ class Surat extends CI_Controller
 
     public function add()
     {
-        $nis = $this->input->post('nis', true);
+        $nis = preg_replace("/[^0-9]/", "", $this->input->post('nis', true));
 
         $cek = $this->M_Surat->cek($nis)->num_rows();
         $cek2 = $this->M_Surat->cek2($nis)->num_rows();

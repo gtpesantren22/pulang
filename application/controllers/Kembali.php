@@ -55,7 +55,7 @@ class Kembali extends CI_Controller
 
     public function add()
     {
-        $nis = $this->input->post('nis', true);
+        $nis = preg_replace("/[^0-9]/", "", $this->input->post('nis', true));
 
 
         $cek4 = $this->M_Kembali->cek4($nis)->num_rows();

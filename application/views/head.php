@@ -94,6 +94,7 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>santri">Santri Putra</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>santri/pi">Santri Putri</a></li>
+                                <!-- <li class="nav-item"> <a class="nav-link" href="<?= base_url(); ?>santri/sincr">Sinkron Data</a></li> -->
                             </ul>
                         </div>
                     </li>

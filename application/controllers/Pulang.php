@@ -55,7 +55,8 @@ class Pulang extends CI_Controller
 
     public function add()
     {
-        $nis = $this->input->post('nis', true);
+        // $nis = $this->input->post('nis', true);
+        $nis = preg_replace("/[^0-9]/", "", $this->input->post('nis', true));
 
 
         $cek4 = $this->M_Pulang->cek4($nis)->num_rows();
