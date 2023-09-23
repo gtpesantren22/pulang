@@ -70,7 +70,7 @@ class Pulang extends CI_Controller
             $this->session->set_flashdata('wrong', 'Maaf santri ini sudah melakukan izin pulang');
             redirect('pulang');
         } elseif ($cek < 1) {
-            $this->session->set_flashdata('wrong', 'Maaf belum mendapat REKOM BENDAHARA');
+            $this->session->set_flashdata('wrong', 'Silahkan selesaikan administrasi di Bendahara Pesantren terlebih dahulu');
             redirect('pulang');
         } else {
             $data = [
