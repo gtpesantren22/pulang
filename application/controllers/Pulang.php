@@ -61,12 +61,16 @@ class Pulang extends CI_Controller
 
         $cek4 = $this->M_Pulang->cek4($nis)->num_rows();
         $cek2 = $this->M_Pulang->cek2($nis)->num_rows();
+        $cek = $this->M_Pulang->cekRekom($nis)->num_rows();
 
         if ($cek4 < 1) {
             $this->session->set_flashdata('wrong', 'Maaf Santri belum melakukan pengambilan surat');
             redirect('pulang');
         } elseif ($cek2 > 0) {
             $this->session->set_flashdata('wrong', 'Maaf santri ini sudah melakukan izin pulang');
+            redirect('pulang');
+        } elseif ($cek < 1) {
+            $this->session->set_flashdata('wrong', 'Maaf belum mendapat REKOM BENDAHARA');
             redirect('pulang');
         } else {
             $data = [

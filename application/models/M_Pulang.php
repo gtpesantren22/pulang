@@ -8,6 +8,7 @@ class M_Pulang extends CI_Model
         $this->load->model('M_Login');
         $user = $this->M_Login->current_user();
 
+        $this->db2 = $this->load->database('sentral', TRUE);
 
         if ($user->level === 'admin') {
             $this->jkl1 = 'Laki-laki';
@@ -259,5 +260,13 @@ class M_Pulang extends CI_Model
     public function belum()
     {
         return $this->db->query("SELECT * FROM tb_santri WHERE (jkl = '$this->jkl1' OR jkl = '$this->jkl2') AND aktif = 'Y' AND NOT EXISTS (SELECT nis FROM pulang WHERE pulang.nis = tb_santri.nis) ORDER BY t_formal ASC, k_formal ASC ");
+    }
+
+    public function cekRekom($nis)
+    {
+        $this->db2->from('rekom');
+        $this->db2->where('nis', $nis);
+        $this->db2->where('ket', 'maulid');
+        return $this->db2->get();
     }
 }
