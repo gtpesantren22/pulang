@@ -14,6 +14,7 @@
               <table class="table table-striped table-sm table-bordered" id="data">
                 <thead>
                   <th>No</th>
+                  <th>NIS</th>
                   <th>Nama</th>
                   <th>Alamat</th>
                   <th>Formal</th>
@@ -26,6 +27,7 @@
                   foreach ($pi as $dt) : ?>
                     <tr>
                       <td><?= $no++ ?></td>
+                      <td><?= $dt->nis; ?></td>
                       <td><?= $dt->nama; ?></td>
                       <td><?= $dt->desa . '-' . $dt->kec . '-' . $dt->kab; ?></td>
                       <td><?= $dt->k_formal . ' ' . $dt->t_formal; ?></td>
