@@ -18,6 +18,18 @@ class Rekap extends CI_Controller
     }
     public function index()
     {
+        $user = $this->M_Login->current_user();
+        if ($user->level === 'admin') {
+            $data['jkl1'] = 'Laki-laki';
+            $data['jkl2'] = 'Perempuan';
+        } elseif ($user->level === 'putra') {
+            $data['jkl1'] = 'Laki-laki';
+            $data['jkl2'] = 'Laki-laki';
+        } elseif ($user->level === 'putri') {
+            $data['jkl1'] = 'Perempuan';
+            $data['jkl2'] = 'Perempuan';
+        }
+
         $data['kelasDataMTs'] = $this->M_Rekap->kelasDataMTs()->result();
         $data['kelasDataSMP'] = $this->M_Rekap->kelasDataSMP()->result();
         $data['kelasDataMA'] = $this->M_Rekap->kelasDataMA()->result();
