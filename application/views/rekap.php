@@ -17,7 +17,8 @@
     </div>
 
     <?php
-    $sqladd = '';
+    $sqladdJoin = "AND (b.jkl = '$jkl1' OR b.jkl = '$jkl2') ";
+    $sqladd = "AND (jkl = '$jkl1' OR jkl = '$jkl2') ";
     ?>
     <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
@@ -52,8 +53,8 @@
                       <?php
                       foreach ($kelasDataMTs as $dt) :
                         $kls = $dt->k_formal;
-                        $sd = $this->db->query("SELECT a.* FROM kembali a JOIN tb_santri b ON a.nis=b.nis WHERE b.jkl = 'Laki-laki' AND b.aktif = 'Y' AND b.k_formal = '$kls' AND t_formal = 'MTs' ")->num_rows();
-                        $bl = $this->db->query("SELECT * FROM tb_santri WHERE jkl = 'Laki-laki' AND aktif = 'Y' AND k_formal = '$kls' AND t_formal = 'MTs' ")->num_rows();
+                        $sd = $this->db->query("SELECT a.* FROM kembali a JOIN tb_santri b ON a.nis=b.nis WHERE b.aktif = 'Y' AND b.k_formal = '$kls' AND t_formal = 'MTs' $sqladdJoin ")->num_rows();
+                        $bl = $this->db->query("SELECT * FROM tb_santri WHERE aktif = 'Y' AND k_formal = '$kls' AND t_formal = 'MTs' $sqladd ")->num_rows();
                       ?>
                         <td style="background-color: green; color: white; text-align: center;"><?= $sd; ?></td>
                         <td style="background-color: red; color: white; text-align: center;"><?= $bl - $sd; ?></td>
@@ -65,8 +66,8 @@
             </div>
             <div class="col-3">
               <?php
-              $mts = $this->db->query("SELECT * FROM tb_santri WHERE t_formal = 'MTs' AND jkl = 'Laki-laki' AND aktif  = 'Y' ")->num_rows();
-              $mtsSd = $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE t_formal = 'MTs' AND jkl = 'Laki-laki' AND aktif  = 'Y' ")->num_rows();
+              $mts = $this->db->query("SELECT * FROM tb_santri WHERE t_formal = 'MTs' AND aktif  = 'Y' $sqladd ")->num_rows();
+              $mtsSd = $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE t_formal = 'MTs' AND aktif  = 'Y' $sqladd ")->num_rows();
               ?>
               <strong style="color: green;">Sudah Kembali : <?= $mtsSd; ?> santri</strong><br>
               <strong style="color: red;">Belum Kembali : <?= $mts - $mtsSd; ?> santri</strong>
@@ -106,8 +107,8 @@
                       <?php
                       foreach ($kelasDataSMP as $dt) :
                         $kls = $dt->k_formal;
-                        $sd = $this->db->query("SELECT a.* FROM kembali a JOIN tb_santri b ON a.nis=b.nis WHERE b.jkl = 'Laki-laki' AND b.aktif = 'Y' AND b.k_formal = '$kls' AND t_formal = 'SMP' ")->num_rows();
-                        $bl = $this->db->query("SELECT * FROM tb_santri WHERE jkl = 'Laki-laki' AND aktif = 'Y' AND k_formal = '$kls' AND t_formal = 'SMP' ")->num_rows();
+                        $sd = $this->db->query("SELECT a.* FROM kembali a JOIN tb_santri b ON a.nis=b.nis WHERE b.aktif = 'Y' AND b.k_formal = '$kls' AND t_formal = 'SMP' $sqladdJoin ")->num_rows();
+                        $bl = $this->db->query("SELECT * FROM tb_santri WHERE aktif = 'Y' AND k_formal = '$kls' AND t_formal = 'SMP' $sqladd ")->num_rows();
                       ?>
                         <td style="background-color: green; color: white; text-align: center;"><?= $sd; ?></td>
                         <td style="background-color: red; color: white; text-align: center;"><?= $bl - $sd; ?></td>
@@ -119,8 +120,8 @@
             </div>
             <div class="col-3">
               <?php
-              $SMP = $this->db->query("SELECT * FROM tb_santri WHERE t_formal = 'SMP' AND jkl = 'Laki-laki' AND aktif  = 'Y' ")->num_rows();
-              $SMPSd = $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE t_formal = 'SMP' AND jkl = 'Laki-laki' AND aktif  = 'Y' ")->num_rows();
+              $SMP = $this->db->query("SELECT * FROM tb_santri WHERE t_formal = 'SMP' AND aktif  = 'Y' $sqladd ")->num_rows();
+              $SMPSd = $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE t_formal = 'SMP' AND aktif  = 'Y' $sqladd ")->num_rows();
               ?>
               <strong style="color: green;">Sudah Kembali : <?= $SMPSd; ?> santri</strong><br>
               <strong style="color: red;">Belum Kembali : <?= $SMP - $SMPSd; ?> santri</strong>
@@ -159,8 +160,8 @@
                       <?php
                       foreach ($kelasDataMA as $dt) :
                         $kls = $dt->k_formal;
-                        $sd = $this->db->query("SELECT a.* FROM kembali a JOIN tb_santri b ON a.nis=b.nis WHERE b.jkl = 'Laki-laki' AND b.aktif = 'Y' AND b.k_formal = '$kls' AND t_formal = 'MA' ")->num_rows();
-                        $bl = $this->db->query("SELECT * FROM tb_santri WHERE jkl = 'Laki-laki' AND aktif = 'Y' AND k_formal = '$kls' AND t_formal = 'MA' ")->num_rows();
+                        $sd = $this->db->query("SELECT a.* FROM kembali a JOIN tb_santri b ON a.nis=b.nis WHERE b.aktif = 'Y' AND b.k_formal = '$kls' AND t_formal = 'MA' $sqladdJoin ")->num_rows();
+                        $bl = $this->db->query("SELECT * FROM tb_santri WHERE  aktif = 'Y' AND k_formal = '$kls' AND t_formal = 'MA' $sqladd ")->num_rows();
                       ?>
                         <td style="background-color: green; color: white; text-align: center;"><?= $sd; ?></td>
                         <td style="background-color: red; color: white; text-align: center;"><?= $bl - $sd; ?></td>
@@ -172,8 +173,8 @@
             </div>
             <div class="col-3">
               <?php
-              $MA = $this->db->query("SELECT * FROM tb_santri WHERE t_formal = 'MA' AND jkl = 'Laki-laki' AND aktif  = 'Y' ")->num_rows();
-              $MASd = $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE t_formal = 'MA' AND jkl = 'Laki-laki' AND aktif  = 'Y' ")->num_rows();
+              $MA = $this->db->query("SELECT * FROM tb_santri WHERE t_formal = 'MA' AND aktif  = 'Y' $sqladd ")->num_rows();
+              $MASd = $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE t_formal = 'MA' AND aktif  = 'Y' $sqladd ")->num_rows();
               ?>
               <strong style="color: green;">Sudah Kembali : <?= $MASd; ?> santri</strong><br>
               <strong style="color: red;">Belum Kembali : <?= $MA - $MASd; ?> santri</strong>
@@ -212,8 +213,8 @@
                       <?php
                       foreach ($kelasDataSMK as $dt) :
                         $kls = $dt->k_formal;
-                        $sd = $this->db->query("SELECT a.* FROM kembali a JOIN tb_santri b ON a.nis=b.nis WHERE b.jkl = 'Laki-laki' AND b.aktif = 'Y' AND b.k_formal = '$kls' AND t_formal = 'SMK' ")->num_rows();
-                        $bl = $this->db->query("SELECT * FROM tb_santri WHERE jkl = 'Laki-laki' AND aktif = 'Y' AND k_formal = '$kls' AND t_formal = 'SMK' ")->num_rows();
+                        $sd = $this->db->query("SELECT a.* FROM kembali a JOIN tb_santri b ON a.nis=b.nis WHERE b.aktif = 'Y' AND b.k_formal = '$kls' AND t_formal = 'SMK' $sqladdJoin ")->num_rows();
+                        $bl = $this->db->query("SELECT * FROM tb_santri WHERE aktif = 'Y' AND k_formal = '$kls' AND t_formal = 'SMK' $sqladd")->num_rows();
                       ?>
                         <td style="background-color: green; color: white; text-align: center;"><?= $sd; ?></td>
                         <td style="background-color: red; color: white; text-align: center;"><?= $bl - $sd; ?></td>
@@ -225,8 +226,8 @@
             </div>
             <div class="col-3">
               <?php
-              $SMK = $this->db->query("SELECT * FROM tb_santri WHERE t_formal = 'SMK' AND jkl = 'Laki-laki' AND aktif  = 'Y' ")->num_rows();
-              $SMKSd = $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE t_formal = 'SMK' AND jkl = 'Laki-laki' AND aktif  = 'Y' ")->num_rows();
+              $SMK = $this->db->query("SELECT * FROM tb_santri WHERE t_formal = 'SMK' AND aktif  = 'Y' $sqladd ")->num_rows();
+              $SMKSd = $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE t_formal = 'SMK' AND aktif  = 'Y' $sqladd ")->num_rows();
               ?>
               <strong style="color: green;">Sudah Kembali : <?= $SMKSd; ?> santri</strong><br>
               <strong style="color: red;">Belum Kembali : <?= $SMK - $SMKSd; ?> santri</strong>
