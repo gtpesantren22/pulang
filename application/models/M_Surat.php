@@ -19,6 +19,8 @@ class M_Surat extends CI_Model
             $this->jkl1 = 'Perempuan';
             $this->jkl2 = 'Perempuan';
         }
+
+        $this->sentral = $this->load->database('sentral');
     }
     public function cek($nis)
     {
@@ -40,6 +42,14 @@ class M_Surat extends CI_Model
         $this->db->where('aktif', 'T');
         $this->db->from('tb_santri');
         return $this->db->get();
+    }
+
+    public function cekRekom($nis)
+    {
+        $this->sentral->where('nis', $nis);
+        $this->sentral->where('ket', 'ramadhan');
+        $this->sentral->from('rekom');
+        return $this->sentral->get();
     }
 
     public function data()

@@ -266,7 +266,7 @@ class M_Pulang extends CI_Model
     {
         $this->db2->from('rekom');
         $this->db2->where('nis', $nis);
-        $this->db2->where('ket', 'maulid');
+        $this->db2->where('ket', 'ramadhan');
         return $this->db2->get();
     }
 }

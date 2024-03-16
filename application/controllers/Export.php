@@ -2,6 +2,11 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+require_once FCPATH . 'vendor/autoload.php';
+
 class Export extends CI_Controller
 {
     // construct
@@ -28,10 +33,10 @@ class Export extends CI_Controller
     {
         // create file name
         $fileName = 'data-' . time() . '.xlsx';
-        // load excel library
-        $this->load->library('excel');
+
         $listInfo = $this->export->exportList();
-        $objPHPExcel = new PHPExcel();
+
+        $objPHPExcel = new Spreadsheet();
         $objPHPExcel->setActiveSheetIndex(0);
         // set Header
         $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'NIS');
@@ -67,12 +72,17 @@ class Export extends CI_Controller
             $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $jarak);
             $rowCount++;
         }
+
         $filename = "Download Data Kembali " . date("Y-m-d H:i:s") . ".csv";
+
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-        $objWriter->save('php://output');
+
+        // Buat objek writer untuk menulis file Excel
+        $writer = new Xlsx($objPHPExcel);
+        // Tulis file Excel ke output
+        $writer->save('php://output');
     }
 
     public function belum()
@@ -80,9 +90,8 @@ class Export extends CI_Controller
         // create file name
         $fileName = 'data-' . time() . '.xlsx';
         // load excel library
-        $this->load->library('excel');
         $listInfo = $this->export->exportBelum();
-        $objPHPExcel = new PHPExcel();
+        $objPHPExcel = new Spreadsheet();
         $objPHPExcel->setActiveSheetIndex(0);
         // set Header
         $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'NIS');
@@ -106,8 +115,10 @@ class Export extends CI_Controller
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-        $objWriter->save('php://output');
+        // Buat objek writer untuk menulis file Excel
+        $writer = new Xlsx($objPHPExcel);
+        // Tulis file Excel ke output
+        $writer->save('php://output');
     }
 
     public function telat()
@@ -115,9 +126,8 @@ class Export extends CI_Controller
         // create file name
         $fileName = 'data-' . time() . '.xlsx';
         // load excel library
-        $this->load->library('excel');
         $listInfo = $this->export->exportTelat();
-        $objPHPExcel = new PHPExcel();
+        $objPHPExcel = new Spreadsheet();
         $objPHPExcel->setActiveSheetIndex(0);
         // set Header
         $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'NIS');
@@ -157,7 +167,9 @@ class Export extends CI_Controller
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-        $objWriter->save('php://output');
+        // Buat objek writer untuk menulis file Excel
+        $writer = new Xlsx($objPHPExcel);
+        // Tulis file Excel ke output
+        $writer->save('php://output');
     }
 }

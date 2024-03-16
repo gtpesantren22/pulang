@@ -61,6 +61,7 @@ class Surat extends CI_Controller
         $cek = $this->M_Surat->cek($nis)->num_rows();
         $cek2 = $this->M_Surat->cek2($nis)->num_rows();
         $cek3 = $this->M_Surat->cek3($nis)->num_rows();
+        $cekRekom = $this->M_Surat->cekRekom($nis)->num_rows();
 
         if ($cek < 1) {
             $this->session->set_flashdata('wrong', 'Maaf Santri tidak terdaftar');
@@ -70,6 +71,9 @@ class Surat extends CI_Controller
             redirect('surat');
         } else if ($cek3 > 0) {
             $this->session->set_flashdata('wrong', 'Maaf Santri tidak aktif');
+            redirect('surat');
+        } else if ($cekRekom < 1) {
+            $this->session->set_flashdata('wrong', 'Maaf belum dapat rekom');
             redirect('surat');
         } else {
             $data = [
