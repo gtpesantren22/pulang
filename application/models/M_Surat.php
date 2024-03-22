@@ -20,7 +20,7 @@ class M_Surat extends CI_Model
             $this->jkl2 = 'Perempuan';
         }
 
-        $this->sentral = $this->load->database('sentral');
+        $this->sentral = $this->load->database('sentral', true);
     }
     public function cek($nis)
     {
