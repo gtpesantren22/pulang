@@ -60,10 +60,11 @@
                 <strong>Success!</strong> <?php echo $this->session->flashdata('yes'); ?>
               </div>
             <?php } else if ($this->session->flashdata('wrong')) { ?>
-              <div class="alert alert-danger">
+              <!-- <div class="alert alert-danger">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                 <strong>Gagal!</strong> <?php echo $this->session->flashdata('wrong'); ?>
-              </div>
+              </div> -->
+              <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('wrong') ?>"></div>
             <?php } ?>
             <?= form_open('surat/add') ?>
             <div class="form-group">

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>dash/vendors/feather/feather.css">
     <link rel="stylesheet" href="<?= base_url() ?>dash/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" href="<?= base_url() ?>dash/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="<?= base_url() ?>dash/sw/sweetalert2.min.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="<?= base_url() ?>dash/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -123,6 +124,13 @@
                         <a class="nav-link" href="<?= base_url('rekap'); ?>">
                             <i class="mdi mdi-animation menu-icon"></i>
                             <span class="menu-title">Rekapan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?= $title === 'reservasi' ? 'active' : '' ?>">
+                        <a class="nav-link" href="<?= base_url('reservasi'); ?>">
+                            <!--<a class="nav-link" href="#">-->
+                            <i class="mdi mdi-playlist-check menu-icon"></i>
+                            <span class="menu-title">Daftar Penjemputan</span>
                         </a>
                     </li>
                 </ul>

@@ -34,6 +34,8 @@
 <!-- Custom js for this page-->
 <script src="<?= base_url() ?>dash/js/dashboard.js"></script>
 <script src="<?= base_url() ?>dash/js/Chart.roundedBarCharts.js"></script>
+<script src="<?= base_url() ?>dash/sw/sweetalert2.all.min.js"></script>
+<script src="<?= base_url() ?>dash/sw/my-notif.js"></script>
 <!-- End custom js for this page-->
 
 <script type="text/javascript">
