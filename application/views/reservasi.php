@@ -133,16 +133,19 @@
     <?php $this->load->view('foot'); ?>
 
     <script>
-      $(document).ready(function() {
+      // $(document).ready(function() {
+      // });
+
+      function mainLoad() {
         loadDataVII();
         loadDataVIII();
         loadDataIX();
         loadDataX();
         loadDataXI();
         loadDataXII();
-      });
+      }
 
-      setInterval(loadData, 2000);
+      setInterval(mainLoad, 2000);
 
       function loadDataVII() {
         $.ajax({
