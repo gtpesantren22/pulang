@@ -269,4 +269,10 @@ class M_Pulang extends CI_Model
         $this->db2->where('ket', 'ramadhan');
         return $this->db2->get();
     }
+
+    public function edit($table, $where, $dtwhere, $data)
+    {
+        $this->db->where($where, $dtwhere);
+        $this->db->update($table, $data);
+    }
 }

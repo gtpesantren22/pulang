@@ -80,9 +80,10 @@ class Pulang extends CI_Controller
 
             $this->M_Pulang->input('pulang', $data);
             if ($this->db->affected_rows() > 0) {
+                $this->M_Pulang->edit('reservasi', 'nis', $nis, ['status' => 'pulang']);
                 $this->session->set_flashdata('yes', 'Pengambilan pulang Berhasil');
+                redirect('pulang');
             }
-            redirect('pulang');
         }
     }
 
