@@ -153,7 +153,7 @@
           type: "GET",
           dataType: "json",
           success: function(response) {
-            $('#dataIsi tbody').empty();
+            $('#dataIsiVII tbody').empty();
             const no = 1;
             // Tambahkan baris baru ke tabel
             $.each(response.data, function(index, row) {
@@ -177,7 +177,7 @@
           type: "GET",
           dataType: "json",
           success: function(response) {
-            $('#dataIsi tbody').empty();
+            $('#dataIsiVIII tbody').empty();
             const no = 1;
             // Tambahkan baris baru ke tabel
             $.each(response.data, function(index, row) {
@@ -201,7 +201,7 @@
           type: "GET",
           dataType: "json",
           success: function(response) {
-            $('#dataIsi tbody').empty();
+            $('#dataIsiIX tbody').empty();
             const no = 1;
             // Tambahkan baris baru ke tabel
             $.each(response.data, function(index, row) {
@@ -225,7 +225,7 @@
           type: "GET",
           dataType: "json",
           success: function(response) {
-            $('#dataIsi tbody').empty();
+            $('#dataIsiX tbody').empty();
             const no = 1;
             // Tambahkan baris baru ke tabel
             $.each(response.data, function(index, row) {
@@ -249,7 +249,7 @@
           type: "GET",
           dataType: "json",
           success: function(response) {
-            $('#dataIsi tbody').empty();
+            $('#dataIsiXI tbody').empty();
             const no = 1;
             // Tambahkan baris baru ke tabel
             $.each(response.data, function(index, row) {
@@ -273,7 +273,7 @@
           type: "GET",
           dataType: "json",
           success: function(response) {
-            $('#dataIsi tbody').empty();
+            $('#dataIsiXII tbody').empty();
             const no = 1;
             // Tambahkan baris baru ke tabel
             $.each(response.data, function(index, row) {
