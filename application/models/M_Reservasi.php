@@ -42,7 +42,7 @@ class M_Reservasi extends CI_Model
         $this->db->delete($table);
     }
 
-    function getData()
+    function getData($kls)
     {
         $this->db->select('id_reservasi,tb_santri.nis,tb_santri.k_formal,tb_santri.t_formal,tb_santri.nama,tb_santri.desa,tb_santri.kec,tb_santri.kab,reservasi.tanggal,reservasi.waktu');
         $this->db->from('reservasi');
@@ -53,6 +53,7 @@ class M_Reservasi extends CI_Model
         $this->db->group_end();
         $this->db->where('reservasi.status', 'proses');
         $this->db->where('reservasi.ket', 'ramadhan');
+        $this->db->where('tb_santri.k_formal', $kls);
         $this->db->order_by('reservasi.tanggal', 'ASC');
         $this->db->order_by('reservasi.waktu', 'ASC');
         return $this->db->get();

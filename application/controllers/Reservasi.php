@@ -74,9 +74,9 @@ class Reservasi extends CI_Controller
         }
     }
 
-    public function getAll()
+    public function getAll($kls)
     {
-        $data = $this->model->getData()->result();
+        $data = $this->model->getData($kls)->result();
 
         echo json_encode(["data" => $data]);
     }
