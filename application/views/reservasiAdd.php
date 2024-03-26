@@ -20,7 +20,10 @@
                 <strong>Gagal!</strong> <?php echo $this->session->flashdata('error'); ?>
               </div>
             <?php } ?>
-            <div class="table-responsive">
+            <form action="<?= base_url('reservasi/saveAddManual') ?>" method="post">
+              <input type="text" class="form-control" name="nis" placeholder="Scan Kartu Mahrom.." autofocus="on" required>
+            </form>
+            <div class="table-responsive mt-2">
               <table class="table table-striped table-sm table-bordered" id="data">
                 <thead>
                   <th>No</th>

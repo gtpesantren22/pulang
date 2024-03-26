@@ -62,6 +62,32 @@ class Reservasi extends CI_Controller
         }
     }
 
+    public function saveAddManual()
+    {
+        $nis = $this->input->post('nis', true);
+        $cek = $this->model->getBy2('reservasi', 'nis', $nis, 'ket', 'ramadhan')->row();
+        if ($cek) {
+            $this->session->set_flashdata('error', 'Data sudah ada');
+            redirect("reservasi/add");
+        } else {
+            $data = [
+                'nis' => $nis,
+                'tanggal' => date('Y-m-d'),
+                'waktu' => date('H:i:s'),
+                'status' => 'proses',
+                'ket' => 'ramadhan'
+            ];
+            $this->model->simpan('reservasi', $data);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('ok', 'Reservasi selesai');
+                redirect("reservasi/add");
+            } else {
+                $this->session->set_flashdata('error', 'Reservasi gagal');
+                redirect("reservasi/add");
+            }
+        }
+    }
+
     public function del($id)
     {
         $this->model->hapus('reservasi', 'id_reservasi', $id);
