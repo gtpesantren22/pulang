@@ -136,20 +136,21 @@ class Export extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Kelas');
         $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Sekolah');
         $objPHPExcel->getActiveSheet()->SetCellValue('F1', 'Kamar');
-        $objPHPExcel->getActiveSheet()->SetCellValue('G1', 'Waktu Kembali');
-        $objPHPExcel->getActiveSheet()->SetCellValue('H1', 'Ket');
-        $objPHPExcel->getActiveSheet()->SetCellValue('I1', 'Waktu Terlambat');
+        $objPHPExcel->getActiveSheet()->SetCellValue('G1', 'Wajib Kembali');
+        $objPHPExcel->getActiveSheet()->SetCellValue('H1', 'Kembali');
+        $objPHPExcel->getActiveSheet()->SetCellValue('I1', 'Ket');
+        $objPHPExcel->getActiveSheet()->SetCellValue('J1', 'Waktu Terlambat');
         // set Row
         $rowCount = 2;
         foreach ($listInfo as $list) {
-            if ($list->waktu > date('14-10-2022 17:00:00')) {
+            if ($list->waktu > date($list->batas_waktu)) {
                 $ket = 'Terlambat';
-                $waktuawal  = date_create('14-10-2022 17:00:00'); //waktu di setting
+                $waktuawal  = date_create($list->batas_waktu); //waktu di setting
                 $waktuakhir = date_create($list->waktu);
                 $diff  = date_diff($waktuawal, $waktuakhir);
                 $jarak = $diff->d . ' hari, ' . $diff->h . ' jam ' . $diff->i . ' menit ';
             } else {
-                $ket = 'Tidak Terlambat';
+                $ket = 'Tidak';
                 $jarak = '-';
             }
             $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $list->nis);
@@ -158,12 +159,13 @@ class Export extends CI_Controller
             $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $list->k_formal);
             $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $list->t_formal);
             $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $list->kamar . ' / ' . $list->komplek);
-            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $list->waktu);
-            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $ket);
-            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $jarak);
+            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $list->batas_waktu);
+            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $list->waktu);
+            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $ket);
+            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $jarak);
             $rowCount++;
         }
-        $filename = "Download Data Kembali " . date("Y-m-d H:i:s") . ".csv";
+        $filename = "Download Data Kembali " . date("Y-m-d H:i:s") . ".xls";
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');

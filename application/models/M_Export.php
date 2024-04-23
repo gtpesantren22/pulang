@@ -37,6 +37,6 @@ class M_Export extends CI_Model
 
     public function exportTelat()
     {
-        return $this->db->query("SELECT * FROM tb_santri a JOIN kembali b ON a.nis=b.nis WHERE (jkl = '$this->jkl1' OR jkl = '$this->jkl2') AND aktif = 'Y' AND waktu > '14-10-2022 17:00:00' ORDER BY t_formal DESC ")->result();
+        return $this->db->query("SELECT kembali.*, tb_santri.nama, tb_santri.kec,tb_santri.desa, tb_santri.kab, tb_santri.k_formal, tb_santri.t_formal, tb_santri.kamar, tb_santri.komplek, (SELECT waktu FROM batas WHERE batas.k_formal=tb_santri.k_formal AND batas.t_formal=tb_santri.t_formal AND batas.jkl=tb_santri.jkl) AS batas_waktu FROM tb_santri JOIN kembali ON tb_santri.nis=kembali.nis WHERE (tb_santri.jkl = '$this->jkl1' OR tb_santri.jkl = '$this->jkl2') AND aktif = 'Y' ORDER BY t_formal DESC")->result();
     }
 }
