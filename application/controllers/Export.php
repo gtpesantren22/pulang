@@ -148,7 +148,7 @@ class Export extends CI_Controller
                 $waktuawal  = date_create($list->batas_waktu); //waktu di setting
                 $waktuakhir = date_create($list->waktu);
                 $diff  = date_diff($waktuawal, $waktuakhir);
-                $jarak = $diff->d . ' hari, ' . $diff->h . ' jam ' . $diff->i . ' menit ';
+                $jarak = $diff->d . ' hari, ' . $diff->h . ' jam ' . $diff->i . ' menit ' . $diff->s . ' detik';
             } else {
                 $ket = 'Tidak';
                 $jarak = '-';
