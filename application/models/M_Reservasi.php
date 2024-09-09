@@ -18,6 +18,9 @@ class M_Reservasi extends CI_Model
             $this->jkl1 = 'Perempuan';
             $this->jkl2 = 'Perempuan';
         }
+
+        $this->sentral = $this->load->database('sentral', true);
+        $this->jenisPulang = 'maulid';
     }
 
     function getBy($table, $where, $dtwhere)
@@ -52,7 +55,7 @@ class M_Reservasi extends CI_Model
         $this->db->or_where('tb_santri.jkl', $this->jkl2);
         $this->db->group_end();
         $this->db->where('reservasi.status', 'proses');
-        $this->db->where('reservasi.ket', 'ramadhan');
+        $this->db->where('reservasi.ket', $this->jenisPulang);
         $this->db->where('tb_santri.k_formal', $kls);
         $this->db->order_by('reservasi.tanggal', 'ASC');
         $this->db->order_by('reservasi.waktu', 'ASC');
@@ -68,7 +71,7 @@ class M_Reservasi extends CI_Model
         $this->db->or_where('tb_santri.jkl', $this->jkl2);
         $this->db->group_end();
         $this->db->where('reservasi.status', 'proses');
-        $this->db->where('reservasi.ket', 'ramadhan');
+        $this->db->where('reservasi.ket', $this->jenisPulang);
         $this->db->order_by('reservasi.tanggal', 'DESC');
         $this->db->order_by('reservasi.waktu', 'DESC');
         return $this->db->get();
@@ -84,5 +87,13 @@ class M_Reservasi extends CI_Model
         $this->db->group_end();
         $this->db->where('tb_santri.aktif', 'Y');
         return $this->db->get();
+    }
+
+    public function cekRekom($nis)
+    {
+        $this->sentral->where('nis', $nis);
+        $this->sentral->where('ket', $this->jenisPulang);
+        $this->sentral->from('rekom');
+        return $this->sentral->get();
     }
 }

@@ -15,7 +15,7 @@ if (flashData) {
 if (flashDataError) {
 	Swal.fire({
 		icon: 'error',
-		title: 'Error. Jangan dikasi pulang',
+		title: 'Error. Belum lunas tanggungan/BP',
 		text: flashDataError
 	})
 }

@@ -73,7 +73,7 @@ class Surat extends CI_Controller
             $this->session->set_flashdata('wrong', 'Maaf Santri tidak aktif');
             redirect('surat');
         } else if ($cekRekom < 1) {
-            $this->session->set_flashdata('wrong', 'Maaf belum dapat rekom');
+            $this->session->set_flashdata('wrong', 'Maaf belum lunas tanggungan/BP');
             redirect('surat');
         } else {
             $data = [

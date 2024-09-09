@@ -15,10 +15,11 @@
                 <strong>Success!</strong> <?php echo $this->session->flashdata('ok'); ?>
               </div>
             <?php } else if ($this->session->flashdata('error')) { ?>
-              <div class="alert alert-danger">
+              <!-- <div class="alert alert-danger">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                 <strong>Gagal!</strong> <?php echo $this->session->flashdata('error'); ?>
-              </div>
+              </div> -->
+              <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('error') ?>"></div>
             <?php } ?>
             <form action="<?= base_url('reservasi/saveAddManual') ?>" method="post">
               <input type="text" class="form-control" name="nis" placeholder="Scan Kartu Mahrom.." autofocus="on" required>

@@ -20,6 +20,8 @@ class M_Pulang extends CI_Model
             $this->jkl1 = 'Perempuan';
             $this->jkl2 = 'Perempuan';
         }
+
+        $this->jenisPulang = 'maulid';
     }
 
     public function cek($nis)
@@ -266,7 +268,7 @@ class M_Pulang extends CI_Model
     {
         $this->db2->from('rekom');
         $this->db2->where('nis', $nis);
-        $this->db2->where('ket', 'ramadhan');
+        $this->db2->where('ket', $this->jenisPulang);
         return $this->db2->get();
     }
 

@@ -21,6 +21,7 @@ class M_Surat extends CI_Model
         }
 
         $this->sentral = $this->load->database('sentral', true);
+        $this->jenisPulang = 'maulid';
     }
     public function cek($nis)
     {
@@ -47,7 +48,7 @@ class M_Surat extends CI_Model
     public function cekRekom($nis)
     {
         $this->sentral->where('nis', $nis);
-        $this->sentral->where('ket', 'ramadhan');
+        $this->sentral->where('ket', $this->jenisPulang);
         $this->sentral->from('rekom');
         return $this->sentral->get();
     }
