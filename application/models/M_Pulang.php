@@ -22,6 +22,7 @@ class M_Pulang extends CI_Model
         }
 
         $this->jenisPulang = 'maulid';
+        $this->tahun = '2024/2025';
     }
 
     public function cek($nis)
@@ -269,6 +270,7 @@ class M_Pulang extends CI_Model
         $this->db2->from('rekom');
         $this->db2->where('nis', $nis);
         $this->db2->where('ket', $this->jenisPulang);
+        $this->db2->where('tahun', $this->tahun);
         return $this->db2->get();
     }
 
