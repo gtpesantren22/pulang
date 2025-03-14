@@ -20,7 +20,7 @@ class M_Reservasi extends CI_Model
         }
 
         $this->sentral = $this->load->database('sentral', true);
-        $this->jenisPulang = 'maulid';
+        $this->jenisPulang = 'ramadhan';
         $this->tahun = '2024/2025';
     }
 

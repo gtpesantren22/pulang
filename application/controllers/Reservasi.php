@@ -15,7 +15,7 @@ class Reservasi extends CI_Controller
             redirect('login');
         }
 
-        $this->jenisPulang = 'maulid';
+        $this->jenisPulang = 'ramadhan';
     }
 
     public function index()
