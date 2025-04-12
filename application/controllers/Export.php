@@ -153,19 +153,21 @@ class Export extends CI_Controller
                 $ket = 'Tidak';
                 $jarak = '-';
             }
-            $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $list->nis);
-            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $list->nama);
-            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $list->desa . ' - ' . $list->kec . ' - ' . $list->kab);
-            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $list->k_formal);
-            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $list->t_formal);
-            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $list->kamar . ' / ' . $list->komplek);
-            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $list->batas_waktu);
-            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $list->waktu);
-            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $ket);
-            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $jarak);
+            if ($ket == 'Terlambat') {
+                $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $list->nis);
+                $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $list->nama);
+                $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $list->desa . ' - ' . $list->kec . ' - ' . $list->kab);
+                $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $list->k_formal);
+                $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $list->t_formal);
+                $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $list->kamar . ' / ' . $list->komplek);
+                $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $list->batas_waktu);
+                $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $list->waktu);
+                $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $ket);
+                $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $jarak);
+            }
             $rowCount++;
         }
-        $filename = "Download Data Kembali " . date("Y-m-d H:i:s") . ".xls";
+        $filename = "Download Data Terlambat " . date("Y-m-d H:i:s") . ".xls";
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
