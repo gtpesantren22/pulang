@@ -164,8 +164,8 @@ class Export extends CI_Controller
                 $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $list->waktu);
                 $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $ket);
                 $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $jarak);
+                $rowCount++;
             }
-            $rowCount++;
         }
         $filename = "Download Data Terlambat " . date("Y-m-d H:i:s") . ".xls";
         header('Content-Type: application/vnd.ms-excel');

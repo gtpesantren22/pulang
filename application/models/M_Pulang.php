@@ -21,8 +21,8 @@ class M_Pulang extends CI_Model
             $this->jkl2 = 'Perempuan';
         }
 
-        $this->jenisPulang = 'ramadhan';
-        $this->tahun = '2024/2025';
+        $this->jenisPulang = 'maulid';
+        $this->tahun = '2025/2026';
     }
 
     public function cek($nis)

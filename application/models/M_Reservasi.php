@@ -20,8 +20,8 @@ class M_Reservasi extends CI_Model
         }
 
         $this->sentral = $this->load->database('sentral', true);
-        $this->jenisPulang = 'ramadhan';
-        $this->tahun = '2024/2025';
+        $this->jenisPulang = 'maulid';
+        $this->tahun = '2025/2026';
     }
 
     function getBy($table, $where, $dtwhere)
